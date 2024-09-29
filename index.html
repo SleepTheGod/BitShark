@@ -311,5 +311,45 @@
             });
         });
     </script>
+<script>
+document.getElementById('register-button').addEventListener('click', async () => {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    const response = await fetch('http://localhost:5000/api/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+    });
+
+    if (response.ok) {
+        alert('User registered successfully!');
+    } else {
+        alert('Registration failed!');
+    }
+});
+
+document.getElementById('login-button').addEventListener('click', async () => {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    const response = await fetch('http://localhost:5000/api/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+    });
+
+    if (response.ok) {
+        const user = await response.json();
+        alert(`Logged in! Your balance is: ${user.balance}`);
+    } else {
+        alert('Login failed!');
+    }
+});
+</script>
 </body>
 </html>
